@@ -16,10 +16,10 @@ export async function joinQueue() {
 
 export async function leaveQueue() {
     var count = await queueLength();
-    if(count > 0){
+    if (count > 0) {
         const sql = 'update taxi_queue set passenger_queue_count = passenger_queue_count-1'
         await db.run(sql);
-    } 
+    }
 }
 
 export async function joinTaxiQueue() {
@@ -37,16 +37,13 @@ export async function taxiQueueLength() {
     return result[0].taxi_queue_count;
 }
 
+
 export async function taxiDepart() {
     var count = await queueLength();
     var countTaxi = await taxiQueueLength();
 
-    if(count >= 12 && countTaxi > 0){
-
-        await db.run('update taxi_queue set passenger_queue_count = passenger_queue_count-12');
-        
-        await db.run('update taxi_queue set taxi_queue_count = taxi_queue_count-1');
-    };  
-
+    if (count >= 12 && countTaxi > 0) {
+        await db.run('update taxi_queue set passenger_queue_count = passenger_queue_count-12, taxi_queue_count = taxi_queue_count-1');       
+    };
     return
 }

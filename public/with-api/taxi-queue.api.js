@@ -12,22 +12,15 @@ document.addEventListener('alpine:init', () => {
 				this.taxiQueueLength()
 			},
 
-			queueLength() {
-				axios
-					.get('/api/passenger/queue')
-					.then(result => {
-						// an example API call
-						this.queueLength = result.data.queueCount
-						console.log(result.data.queueCount)
-					});
-			},
-
 			joinQueue() {
 				axios
 					.post('/api/passenger/join')
 					.then((result) => {
 						console.log(result.data.message);
 					})
+
+				this.queueLength()
+				this.taxiQueueLength()
 			},
 
 
@@ -37,6 +30,9 @@ document.addEventListener('alpine:init', () => {
 					.then((result) => {
 						console.log(result.data.message);
 					})
+
+				this.queueLength()
+				this.taxiQueueLength()
 			},
 
 			joinTaxiQueue() {
@@ -45,6 +41,9 @@ document.addEventListener('alpine:init', () => {
 					.then((result) => {
 						console.log(result.data.message);
 					})
+
+				this.queueLength()
+				this.taxiQueueLength()
 			},
 
 			taxiQueueLength() {
@@ -52,7 +51,7 @@ document.addEventListener('alpine:init', () => {
 					.get('/api/taxi/queue')
 					.then((result) => {
 						this.taxiQueueLen = result.data.queueCount
-					})
+					})		
 			},
 
 			queueLength() {
@@ -69,6 +68,9 @@ document.addEventListener('alpine:init', () => {
 					.then((result) => {
 						console.log(result.data.message);
 					})
+
+				this.queueLength()
+				this.taxiQueueLength()
 			}
 		}
 	});
